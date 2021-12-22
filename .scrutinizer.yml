@@ -1,5 +1,5 @@
 filter:
-  excluded_paths: [tests/*]
+  excluded_paths: [ tests/* ]
 
 build:
   nodes:
@@ -11,6 +11,10 @@ build:
             "xdebug.mode": coverage
       tests:
         override:
+          - command: vendor/bin/phpunit --coverage-clover=coverage-file
+            coverage:
+              file: coverage-file
+              format: php-clover
           - php-scrutinizer-run
 
 checks:
