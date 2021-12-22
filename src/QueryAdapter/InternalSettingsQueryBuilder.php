@@ -11,7 +11,7 @@ use Thinkone\NovaPageSettings\Templates\SettingsTemplate;
 
 class InternalSettingsQueryBuilder extends QueryBuilder
 {
-    protected array $_templates = [];
+    protected array $_templates         = [];
     protected array $_templatesCompiled = [];
 
     protected function runSelect()
@@ -22,8 +22,8 @@ class InternalSettingsQueryBuilder extends QueryBuilder
                 ->map(function ($template, $id) {
                     return [
                         InternalSettingsModel::ATTR_CLASS => $template,
-                        InternalSettingsModel::ATTR_ID => $id,
-                        InternalSettingsModel::ATTR_NAME => $template::getName(),
+                        InternalSettingsModel::ATTR_ID    => $id,
+                        InternalSettingsModel::ATTR_NAME  => $template::getName(),
                     ];
                 })->toArray();
         }
@@ -51,7 +51,7 @@ class InternalSettingsQueryBuilder extends QueryBuilder
                 );
 
                 if (class_implements($template, SettingsTemplate::class) &&
-                     ! ( new ReflectionClass($template) )->isAbstract()) {
+                     !( new ReflectionClass($template) )->isAbstract()) {
                     $templates[] = $template;
                 }
             }

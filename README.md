@@ -1,7 +1,11 @@
 # Laravel nova page settings
 
-Ad hoc solution to add settings configuration to laravel nova.\
-The package is currently unstable and support is very slow. For production, you may need to fork
+[![Packagist License](https://img.shields.io/packagist/l/yaroslawww/nova-page-settings?color=%234dc71f)](https://github.com/yaroslawww/nova-page-settings/blob/master/LICENSE.md)
+[![Packagist Version](https://img.shields.io/packagist/v/yaroslawww/nova-page-settings)](https://packagist.org/packages/yaroslawww/nova-page-settings)
+[![Build Status](https://scrutinizer-ci.com/g/yaroslawww/nova-page-settings/badges/build.png?b=master)](https://scrutinizer-ci.com/g/yaroslawww/nova-page-settings/build-status/master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/yaroslawww/nova-page-settings/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/yaroslawww/nova-page-settings/?branch=master)
+
+Ad hoc solution to add settings configuration to laravel nova.
 
 ## Installation
 

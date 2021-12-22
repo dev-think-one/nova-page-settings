@@ -10,8 +10,8 @@ use Thinkone\NovaPageSettings\Templates\SettingsTemplate;
 abstract class InternalSettingsModel extends Model
 {
     const ATTR_CLASS = '__nps_class';
-    const ATTR_ID = 'id';
-    const ATTR_NAME = '__nps_name';
+    const ATTR_ID    = 'id';
+    const ATTR_NAME  = '__nps_name';
 
     protected $_buffer = [];
 
@@ -61,11 +61,11 @@ abstract class InternalSettingsModel extends Model
 
     public function getAttribute($key)
     {
-        if (! in_array($key, $this->predefinedKeys()) && Str::startsWith($key, 'opt_')) {
+        if (!in_array($key, $this->predefinedKeys()) && Str::startsWith($key, 'opt_')) {
             $newKey = Str::after($key, 'opt_');
-            if (! array_key_exists($newKey, $this->_buffer)) {
+            if (!array_key_exists($newKey, $this->_buffer)) {
                 $template = $this->template();
-                $model = $this->getDBModel()::where('page', '=', $template::getSlug())
+                $model    = $this->getDBModel()::where('page', '=', $template::getSlug())
                                  ->where('key', '=', $newKey)->first();
                 if ($model) {
                     $this->_buffer[ $newKey ] = $template->mutateAttribute($newKey, $model->value);
@@ -82,7 +82,7 @@ abstract class InternalSettingsModel extends Model
 
     public function setAttribute($key, $value)
     {
-        if (! in_array($key, $this->predefinedKeys()) && Str::startsWith($key, 'opt_')) {
+        if (!in_array($key, $this->predefinedKeys()) && Str::startsWith($key, 'opt_')) {
             $newKey = Str::after($key, 'opt_');
 
             $this->_buffer[ $newKey ] = $value;

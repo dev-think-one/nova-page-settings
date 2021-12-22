@@ -14,8 +14,8 @@ class SettingsQueryBuilder extends EloquentBuilder
     public function first($columns = [ '*' ])
     {
         $wheres = $this->query->wheres;
-        $key = InternalSettingsModel::ATTR_ID;
-        $val = collect($wheres)->firstWhere('column', "{$this->query->from}.{$key}");
+        $key    = InternalSettingsModel::ATTR_ID;
+        $val    = collect($wheres)->firstWhere('column', "{$this->query->from}.{$key}");
 
         if ($val) {
             return $this->find($val['value']);

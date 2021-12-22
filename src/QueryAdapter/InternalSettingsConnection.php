@@ -7,7 +7,7 @@ use Illuminate\Database\ConnectionInterface;
 
 class InternalSettingsConnection implements ConnectionInterface
 {
-    public function getName()
+    public function getName(): string
     {
         return static::class;
     }
@@ -19,91 +19,91 @@ class InternalSettingsConnection implements ConnectionInterface
 
     public function raw($value)
     {
-        // TODO: Implement raw() method.
+        // unused
     }
 
     public function selectOne($query, $bindings = [], $useReadPdo = true)
     {
-        // TODO: Implement selectOne() method.
+        // unused
     }
 
     public function select($query, $bindings = [], $useReadPdo = true)
     {
-        // TODO: Implement select() method.
+        // unused
     }
 
     public function cursor($query, $bindings = [], $useReadPdo = true)
     {
-        // TODO: Implement cursor() method.
+        // unused
     }
 
     public function insert($query, $bindings = [])
     {
-        // TODO: Implement insert() method.
+        // unused
     }
 
     public function update($query, $bindings = [])
     {
-        // TODO: Implement update() method.
+        // unused
     }
 
     public function delete($query, $bindings = [])
     {
-        // TODO: Implement delete() method.
+        // unused
     }
 
     public function statement($query, $bindings = [])
     {
-        // TODO: Implement statement() method.
+        // unused
     }
 
     public function affectingStatement($query, $bindings = [])
     {
-        // TODO: Implement affectingStatement() method.
+        // unused
     }
 
     public function unprepared($query)
     {
-        // TODO: Implement unprepared() method.
+        // unused
     }
 
     public function prepareBindings(array $bindings)
     {
-        // TODO: Implement prepareBindings() method.
+        // unused
     }
 
     public function transaction(Closure $callback, $attempts = 1)
     {
-        // TODO: Implement transaction() method.
+        // unused
     }
 
     public function beginTransaction()
     {
-        // TODO: Implement beginTransaction() method.
+        // unused
     }
 
     public function commit()
     {
-        // TODO: Implement commit() method.
+        // unused
     }
 
     public function rollBack()
     {
-        // TODO: Implement rollBack() method.
+        // unused
     }
 
     public function transactionLevel()
     {
-        // TODO: Implement transactionLevel() method.
+        // unused
     }
 
     public function pretend(Closure $callback)
     {
-        // TODO: Implement pretend() method.
+        // unused
     }
 
     public function getDatabaseName()
     {
-        // TODO: Implement getDatabaseName() method.
+        // unused
     }
 }

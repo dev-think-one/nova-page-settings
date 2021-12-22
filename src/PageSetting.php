@@ -26,35 +26,35 @@ abstract class PageSetting extends Model
 
     public function valueBool(): bool
     {
-        return (bool) $this->value;
+        return (bool) ($this->value);
     }
 
     public function valueString(): string
     {
         try {
-            return (string) $this->value;
+            return (string) ($this->value);
         } catch (\Exception $e) {
             return '';
         }
     }
 
     /**
-     * @param Collection|PageSetting[] $collection
-     * @param string $key
-     * @param string $type
-     * @param null $default
+     * @param  Collection|PageSetting[]  $collection
+     * @param  string  $key
+     * @param  string  $type
+     * @param  null  $default
      *
      * @return mixed|null
      */
-    public static function getValueFromCollection(Collection $collection, string $key, $type = 'string', $default = null)
+    public static function getValueFromCollection(Collection $collection, string $key, string $type = 'string', $default = null)
     {
         /** @var PageSetting $setting */
         if ($setting = $collection->firstWhere('key', $key)) {
-            if (is_object($setting) && method_exists($setting, ($method = 'value' . Str::ucfirst($type)))) {
-                return $setting->$method() ?: $default;
+            if (is_object($setting) && method_exists($setting, ($method = 'value'.Str::ucfirst($type)))) {
+                return $setting->$method();
             }
 
-            return Arr::get($setting, 'value') ?: $default;
+            return Arr::get($setting, 'value');
         }
 
         return $default;

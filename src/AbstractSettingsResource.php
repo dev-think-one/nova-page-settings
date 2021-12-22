@@ -14,7 +14,7 @@ use Thinkone\NovaPageSettings\Templates\SettingsTemplate;
 
 abstract class AbstractSettingsResource extends Resource
 {
-    public static $searchable = false;
+    public static $searchable         = false;
     public static $globallySearchable = false;
 
     public static $title = InternalSettingsModel::ATTR_NAME;
