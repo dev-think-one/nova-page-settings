@@ -99,7 +99,7 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Thinkone\NovaPageSettings\Templates\BaseTemplate;
-use Whitecube\NovaFlexibleContent\Flexible;
+use NovaFlexibleContent\Flexible;
 
 class MarketingPageSettings extends BaseTemplate
 {
@@ -114,10 +114,6 @@ class MarketingPageSettings extends BaseTemplate
             // NOTICE: do not forget use "templateKey" method
             Flexible::make('Slider', $this->templateKey('slider'))
                     ->addLayout('Custom Slide', 'custom_slide', [
-                        Image::make('Image', 'image')
-                             ->rules([ 'max:' . 1024 * 10 ])
-                             ->deletable(false)
-                             ->help('~1600x1200px. Already optimised jpg or png. If empty, a random image will be used'),
                         Text::make('Title', 'title'),
                         Textarea::make('Text', 'text'),
                         Text::make('Button Text', 'btn_text'),
