@@ -22,7 +22,7 @@ class InternalSettingsQueryBuilder extends QueryBuilder
                 ->map(function ($template, $id) {
                     return [
                         InternalSettingsModel::ATTR_CLASS => $template,
-                        InternalSettingsModel::ATTR_ID    => $id,
+                        InternalSettingsModel::ATTR_ID    => method_exists($template, 'getID')?$template::getID():$id,
                         InternalSettingsModel::ATTR_NAME  => $template::getName(),
                     ];
                 })->toArray();
