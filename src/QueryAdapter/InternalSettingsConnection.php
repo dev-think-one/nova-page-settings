@@ -9,7 +9,7 @@ class InternalSettingsConnection implements ConnectionInterface
 {
     public function getName(): string
     {
-        return static::class;
+        return config('nova-page-settings.db_connection');
     }
 
     public function table($table, $as = null)
