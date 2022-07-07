@@ -9,6 +9,11 @@
 
 Ad hoc solution to add settings configuration to laravel nova.
 
+| Nova | Package |
+|------|---------|
+| V1   | V1 V2   |
+| V4   | V3      |
+
 ## Installation
 
 You can install the package via composer:
