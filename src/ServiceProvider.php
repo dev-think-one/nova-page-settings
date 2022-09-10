@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Gate;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
-
     /**
      * Bootstrap any application services.
      *

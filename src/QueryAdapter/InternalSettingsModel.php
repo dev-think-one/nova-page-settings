@@ -19,7 +19,7 @@ abstract class InternalSettingsModel extends Model
 
     public function getTemplatesPath(): string
     {
-        return 'app/Nova/PageSettings/Templates';
+        return config('nova-page-settings.default.templates_path');
     }
 
     public function getTable()

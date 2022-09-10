@@ -11,6 +11,13 @@ abstract class BaseTemplate implements SettingsTemplate
         return Str::slug(static::getName());
     }
 
+    public static function retreive(?string $modelClass = null)
+    {
+        $modelClass = $modelClass ?? config('nova-page-settings.default.settings_model');
+
+        return $modelClass::page(static::getSlug())->get();
+    }
+
     public static function getName(): string
     {
         return Str::title(Str::snake(array_reverse(explode('\\', static::class))[0], ' '));
@@ -18,12 +25,12 @@ abstract class BaseTemplate implements SettingsTemplate
 
     public function templateKey(string $key): string
     {
-        return 'opt_' . $key;
+        return 'opt_'.$key;
     }
 
     protected function hasAttrMutator($key): bool
     {
-        return method_exists($this, 'get' . Str::studly($key) . 'Attribute');
+        return method_exists($this, 'get'.Str::studly($key).'Attribute');
     }
 
 

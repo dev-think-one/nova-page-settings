@@ -9,11 +9,19 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Http\Requests\ResourceDetailRequest;
 use Laravel\Nova\Http\Requests\ResourceIndexRequest;
 use Laravel\Nova\Resource;
+use Thinkone\NovaPageSettings\Adapters\CMSPageSettingModel;
 use Thinkone\NovaPageSettings\QueryAdapter\InternalSettingsModel;
 use Thinkone\NovaPageSettings\Templates\SettingsTemplate;
 
 abstract class AbstractSettingsResource extends Resource
 {
+    /**
+     * The model the resource corresponds to.
+     *
+     * @var string
+     */
+    public static $model = CMSPageSettingModel::class;
+
     public static $searchable         = false;
     public static $globallySearchable = false;
 

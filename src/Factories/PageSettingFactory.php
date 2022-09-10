@@ -3,9 +3,9 @@
 namespace Thinkone\NovaPageSettings\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Thinkone\NovaPageSettings\PageSetting;
+use Thinkone\NovaPageSettings\Model\PageSetting;
 
-abstract class PageSettingFactory extends Factory
+class PageSettingFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.

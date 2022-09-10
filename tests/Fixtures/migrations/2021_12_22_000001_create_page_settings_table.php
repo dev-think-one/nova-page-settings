@@ -13,9 +13,9 @@ class CreatePageSettingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('page_settings', function (Blueprint $table) {
+        Schema::create( config('nova-page-settings.default.settings_table'), function ( Blueprint $table ) {
             \Thinkone\NovaPageSettings\MigrationHelper::defaultColumns($table);
-        });
+        } );
     }
 
     /**
@@ -25,6 +25,6 @@ class CreatePageSettingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('page_settings');
+        Schema::dropIfExists(config('nova-page-settings.default.settings_table'));
     }
 }
