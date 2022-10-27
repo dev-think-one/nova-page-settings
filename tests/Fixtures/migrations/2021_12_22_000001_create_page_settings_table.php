@@ -13,9 +13,9 @@ class CreatePageSettingsTable extends Migration
      */
     public function up()
     {
-        Schema::create( config('nova-page-settings.default.settings_table'), function ( Blueprint $table ) {
+        Schema::create(config('nova-page-settings.default.settings_table'), function (Blueprint $table) {
             \Thinkone\NovaPageSettings\MigrationHelper::defaultColumns($table);
-        } );
+        });
     }
 
     /**
