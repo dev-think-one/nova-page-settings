@@ -13,6 +13,7 @@ class SettingsQueryBuilder extends EloquentBuilder
 
     public function first($columns = [ '*' ])
     {
+        /* ad-hoc solution to prevent real call to database */
         $wheres = $this->query->wheres;
         $key    = InternalSettingsModel::ATTR_ID;
         $val    = collect($wheres)->firstWhere('column', "{$this->query->from}.{$key}");
@@ -22,5 +23,10 @@ class SettingsQueryBuilder extends EloquentBuilder
         }
 
         return parent::first($columns);
+    }
+
+    public function exists(): bool
+    {
+        return !!$this->first();
     }
 }
