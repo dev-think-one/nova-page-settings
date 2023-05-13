@@ -20,7 +20,11 @@ You can install the package via composer:
 
 ```bash
 composer require yaroslawww/nova-page-settings
-# optional publish configs
+```
+
+Optional publish configs
+
+```bash
 php artisan vendor:publish --provider="ThinkOne\NovaPageSettings\ServiceProvider" --tag="config"
 ```
 
@@ -43,7 +47,6 @@ public function up() {
 ```injectablephp
 namespace App\Nova\Resources;
 
-use App\Nova\PageSettings\Adapters\MyPageSettingModel;
 use Thinkone\NovaPageSettings\AbstractSettingsResource;
 
 class MyPageSetting extends AbstractSettingsResource
