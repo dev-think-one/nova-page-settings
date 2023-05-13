@@ -97,7 +97,7 @@ class MarketingPageSettings extends BaseTemplate
 
 ```injectablephp
  /** @var \Illuminate\Support\Collection $pageSettings */
- $pageSettings =  MyPageSettingModel::page(MarketingPageSettings::getSlug())->get();
+ $pageSettings = \Thinkone\NovaPageSettings\Model\PageSetting;::page(MarketingPageSettings::getSlug())->get();
  // get array of slides using helper
  $slides = $pageSettings->getSettingValue( 'slider', 'array', []);
  // get typed value
