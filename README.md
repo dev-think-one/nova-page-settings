@@ -32,7 +32,7 @@ php artisan vendor:publish --provider="ThinkOne\NovaPageSettings\ServiceProvider
 
 ### Admin part
 
-1. Create settings table
+1. Create settings table (migration)
 
 ```injectablephp
 public function up() {
@@ -47,17 +47,34 @@ public function up() {
 ```injectablephp
 namespace App\Nova\Resources;
 
-use Thinkone\NovaPageSettings\AbstractSettingsResource;
-
-class MyPageSetting extends AbstractSettingsResource
+class PageSettingResource extends Resource
 {
+    use \Thinkone\NovaPageSettings\Nova\Resources\Traits\AsPageSetting;
+
+    public static $model = \Thinkone\NovaPageSettings\Adapters\CMSPageSettingModel::class;
+
+    public static $searchable         = false;
+    public static $globallySearchable = false;
+
+    public static $title = \Thinkone\NovaPageSettings\QueryAdapter\InternalSettingsModel::ATTR_NAME;
+
+    public static $perPageOptions = [ 1000 ];
     
+    public static function label()
+    {
+        return 'Custom settings';
+    }
+
+    public static function uriKey()
+    {
+        return 'custom-page-settings';
+    }
 }
 ```
 
 3. Create templates in folder what you specified in step 3. System will find all templates in folder automatically.
 
-```injectablephp
+```php
 namespace App\Nova\PageSettings\Templates;
 
 use Laravel\Nova\Fields\Image;
@@ -95,14 +112,32 @@ class MarketingPageSettings extends BaseTemplate
 
 ### Frontend part
 
-```injectablephp
+```php
  /** @var \Illuminate\Support\Collection $pageSettings */
- $pageSettings = \Thinkone\NovaPageSettings\Model\PageSetting;::page(MarketingPageSettings::getSlug())->get();
+ $pageSettings = MarketingPageSettings::retrieve();
  // get array of slides using helper
  $slides = $pageSettings->getSettingValue( 'slider', 'array', []);
  // get typed value
  $slides = $pageSettings->arraySettingValue( 'slider', []);
  $slides = $pageSettings->stringSettingValue( 'notification_email');
+```
+
+## Use flexible
+
+If you need to use flexible content package you will need override default model:
+
+```php
+namespace App\Models;
+
+class PageSetting extends \Thinkone\NovaPageSettings\Model\PageSetting
+{
+    use \NovaFlexibleContent\Concerns\HasFlexible;
+
+    public function valueFlexible(array $layoutMapping = []): \NovaFlexibleContent\Layouts\LayoutsCollection
+    {
+        return $this->flexible('value', $layoutMapping);
+    }
+}
 ```
 
 ## Credits
