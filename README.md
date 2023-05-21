@@ -113,13 +113,18 @@ class MarketingPageSettings extends BaseTemplate
 ### Frontend part
 
 ```php
- /** @var \Illuminate\Support\Collection $pageSettings */
+ /** @var \Illuminate\Support\PageSettingsCollection $pageSettings */
  $pageSettings = MarketingPageSettings::retrieve();
  // get array of slides using helper
  $slides = $pageSettings->getSettingValue( 'slider', 'array', []);
  // get typed value
  $slides = $pageSettings->arraySettingValue( 'slider', []);
  $slides = $pageSettings->stringSettingValue( 'notification_email');
+
+ // or
+ /** @var array $viewData */
+ $viewData = MarketingPageSettings::viewData();
+ echo $viewData['slider'];
 ```
 
 ## Use flexible

@@ -13,7 +13,7 @@ use Thinkone\NovaPageSettings\Templates\SettingsTemplate;
 
 trait AsPageSetting
 {
-    public function fields(Request $request)
+    public function fields(Request $request): array
     {
         if ($request instanceof ResourceIndexRequest) {
             return $this->fieldsOnIndex($request);

@@ -28,9 +28,14 @@ class PageSetting extends Model
         return new PageSettingsCollection($models);
     }
 
-    public function scopePage(Builder $query, $slug)
+    public function scopePage(Builder $query, string $slug)
     {
         return $query->where('page', '=', $slug);
+    }
+
+    public function scopeKey(Builder $query, string $key)
+    {
+        return $query->where('key', '=', $key);
     }
 
     public function valueArray(): array

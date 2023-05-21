@@ -15,11 +15,19 @@ abstract class InternalSettingsModel extends Model
 
     protected $_buffer = [];
 
+    /**
+     * @return class-string \Thinkone\NovaPageSettings\Model
+     */
     abstract public function getDBModel(): string;
 
     public function getTemplatesPath(): string
     {
         return config('nova-page-settings.default.templates_path');
+    }
+
+    public function keyPrefix(): string
+    {
+        return config('nova-page-settings.key_prefix');
     }
 
     public function getTable()
@@ -38,19 +46,19 @@ abstract class InternalSettingsModel extends Model
 
     public function newEloquentBuilder($query)
     {
-        return ( new SettingsQueryBuilder($query) )->setModel($this);
+        return (new SettingsQueryBuilder($query))->setModel($this);
     }
 
-    public function template()
+    public function template(): ?SettingsTemplate
     {
-        if ($class = $this->attributes[ self::ATTR_CLASS ]) {
+        if ($class = $this->attributes[self::ATTR_CLASS]) {
             return new $class();
         }
 
         return null;
     }
 
-    protected function predefinedKeys()
+    protected function predefinedKeys(): array
     {
         return [
             self::ATTR_CLASS,
@@ -61,20 +69,21 @@ abstract class InternalSettingsModel extends Model
 
     public function getAttribute($key)
     {
-        if (!in_array($key, $this->predefinedKeys()) && Str::startsWith($key, 'opt_')) {
-            $newKey = Str::after($key, 'opt_');
+        if (!in_array($key, $this->predefinedKeys()) && Str::startsWith($key, static::keyPrefix())) {
+            $newKey = Str::after($key, static::keyPrefix());
             if (!array_key_exists($newKey, $this->_buffer)) {
                 $template = $this->template();
-                $model    = $this->getDBModel()::where('page', '=', $template::getSlug())
-                                 ->where('key', '=', $newKey)->first();
+                $model    = $this->getDBModel()::query()
+                    ->page($template::getSlug())
+                    ->key($newKey)->first();
                 if ($model) {
-                    $this->_buffer[ $newKey ] = $template->mutateAttribute($newKey, $model->value);
+                    $this->_buffer[$newKey] = $template->mutateAttribute($newKey, $model->value);
                 } else {
-                    $this->_buffer[ $newKey ] = null;
+                    $this->_buffer[$newKey] = null;
                 }
             }
 
-            return $this->_buffer[ $newKey ];
+            return $this->_buffer[$newKey];
         }
 
         return parent::getAttribute($key);
@@ -82,10 +91,10 @@ abstract class InternalSettingsModel extends Model
 
     public function setAttribute($key, $value)
     {
-        if (!in_array($key, $this->predefinedKeys()) && Str::startsWith($key, 'opt_')) {
-            $newKey = Str::after($key, 'opt_');
+        if (!in_array($key, $this->predefinedKeys()) && Str::startsWith($key, static::keyPrefix())) {
+            $newKey = Str::after($key, static::keyPrefix());
 
-            $this->_buffer[ $newKey ] = $value;
+            $this->_buffer[$newKey] = $value;
 
             return $this;
         }
@@ -101,8 +110,8 @@ abstract class InternalSettingsModel extends Model
             $page = $template::getSlug();
             foreach ($this->_buffer as $key => $value) {
                 $this->getDBModel()::updateOrCreate(
-                    [ 'page' => $page, 'key' => $key ],
-                    [ 'value' => $value ]
+                    ['page' => $page, 'key' => $key],
+                    ['value' => $value]
                 );
             }
         }
