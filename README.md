@@ -1,11 +1,11 @@
 # Laravel nova page settings
 
-[![Packagist License](https://img.shields.io/packagist/l/yaroslawww/nova-page-settings?color=%234dc71f)](https://github.com/yaroslawww/nova-page-settings/blob/master/LICENSE.md)
-[![Packagist Version](https://img.shields.io/packagist/v/yaroslawww/nova-page-settings)](https://packagist.org/packages/yaroslawww/nova-page-settings)
-[![Total Downloads](https://img.shields.io/packagist/dt/yaroslawww/nova-page-settings)](https://packagist.org/packages/yaroslawww/nova-page-settings)
-[![Build Status](https://scrutinizer-ci.com/g/yaroslawww/nova-page-settings/badges/build.png?b=master)](https://scrutinizer-ci.com/g/yaroslawww/nova-page-settings/build-status/master)
-[![Code Coverage](https://scrutinizer-ci.com/g/yaroslawww/nova-page-settings/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/yaroslawww/nova-page-settings/?branch=master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/yaroslawww/nova-page-settings/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/yaroslawww/nova-page-settings/?branch=master)
+![Packagist License](https://img.shields.io/packagist/l/think.studio/nova-page-settings?color=%234dc71f)
+[![Packagist Version](https://img.shields.io/packagist/v/think.studio/nova-page-settings)](https://packagist.org/packages/think.studio/nova-page-settings)
+[![Total Downloads](https://img.shields.io/packagist/dt/think.studio/nova-page-settings)](https://packagist.org/packages/think.studio/nova-page-settings)
+[![Build Status](https://scrutinizer-ci.com/g/dev-think-one/nova-page-settings/badges/build.png?b=main)](https://scrutinizer-ci.com/g/dev-think-one/nova-page-settings/build-status/main)
+[![Code Coverage](https://scrutinizer-ci.com/g/dev-think-one/nova-page-settings/badges/coverage.png?b=main)](https://scrutinizer-ci.com/g/dev-think-one/nova-page-settings/?branch=main)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dev-think-one/nova-page-settings/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/dev-think-one/nova-page-settings/?branch=main)
 
 Ad hoc solution to add settings configuration to laravel nova.
 
@@ -19,7 +19,7 @@ Ad hoc solution to add settings configuration to laravel nova.
 You can install the package via composer:
 
 ```bash
-composer require yaroslawww/nova-page-settings
+composer require think.studio/nova-page-settings
 ```
 
 Optional publish configs
@@ -34,7 +34,7 @@ php artisan vendor:publish --provider="ThinkOne\NovaPageSettings\ServiceProvider
 
 1. Create settings table (migration)
 
-```injectablephp
+```php
 public function up() {
     Schema::create( config('nova-page-settings.default.settings_table'), function ( Blueprint $table ) {
         \Thinkone\NovaPageSettings\MigrationHelper::defaultColumns($table);
@@ -44,7 +44,7 @@ public function up() {
 
 2. Create resource
 
-```injectablephp
+```php
 namespace App\Nova\Resources;
 
 class PageSettingResource extends Resource
