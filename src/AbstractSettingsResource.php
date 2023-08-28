@@ -6,6 +6,7 @@ use Laravel\Nova\Resource;
 
 /**
  * @deprecated
+ * @extends Resource<\Thinkone\NovaPageSettings\Adapters\CMSPageSettingModel>
  */
 abstract class AbstractSettingsResource extends Resource
 {

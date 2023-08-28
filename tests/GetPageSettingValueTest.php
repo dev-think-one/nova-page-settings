@@ -10,17 +10,17 @@ class GetPageSettingValueTest extends TestCase
     public function get_value_using_helper()
     {
         PageSetting::factory()
-                   ->page('foo-page')
-                   ->setData('foo-key', 'Test foo.')
-                   ->create();
+            ->page('foo-page')
+            ->setData('foo-key', 'Test foo.')
+            ->create();
         PageSetting::factory()
-                   ->page('foo-page')
-                   ->setData('foo-key', 'Example foo.')
-                   ->create();
+            ->page('foo-page')
+            ->setData('foo-key', 'Example foo.')
+            ->create();
         PageSetting::factory()
-                   ->page('foo-page')
-                   ->setData('bar-key', '')
-                   ->create();
+            ->page('foo-page')
+            ->setData('bar-key', '')
+            ->create();
 
         $data = PageSetting::query()->page('foo-page')->get();
 
@@ -60,5 +60,38 @@ class GetPageSettingValueTest extends TestCase
         $this->assertEmpty($data->arraySettingValue('foo-key', ['Test', 'DefaultTest']));
         $this->assertEmpty($data->arraySettingValue('bar-key', ['Test', 'DefaultTest']));
         $this->assertTrue('DefaultTest' === $data->arraySettingValue('baz-key', ['Test', 'DefaultTest'])[1]);
+
+
+        /** @var \Thinkone\NovaPageSettings\Model\PageSetting $pageSetting */
+        $pageSetting = \Thinkone\NovaPageSettings\Model\PageSetting::factory()
+            ->page('foo-page')
+            ->key('quex')
+            ->create();
+        $pageSetting->value = ['test'];
+        $this->assertIsString($pageSetting->valueString());
+        $this->assertEmpty($pageSetting->valueString());
+        $this->assertIsArray($pageSetting->valueArray());
+        $this->assertEquals('test', $pageSetting->valueArray()[0]);
+    }
+
+    /** @test */
+    public function find_model_by_key()
+    {
+        PageSetting::factory()
+            ->page('foo-page')
+            ->setData('foo-key', 'Test foo.')
+            ->create();
+        PageSetting::factory()
+            ->page('foo-page')
+            ->setData('foo-key', 'Example foo.')
+            ->create();
+        PageSetting::factory()
+            ->page('foo-page')
+            ->setData('bar-key', '')
+            ->create();
+
+        $this->assertEquals(0, \Thinkone\NovaPageSettings\Model\PageSetting::query()->key('foo-test')->count());
+        $this->assertEquals(1, \Thinkone\NovaPageSettings\Model\PageSetting::query()->key('bar-key')->count());
+        $this->assertEquals(2, \Thinkone\NovaPageSettings\Model\PageSetting::query()->key('foo-key')->count());
     }
 }

@@ -30,12 +30,12 @@ abstract class InternalSettingsModel extends Model
         return config('nova-page-settings.key_prefix');
     }
 
-    public function getTable()
+    public function getTable(): string
     {
         return $this->getTemplatesPath();
     }
 
-    protected function newBaseQueryBuilder()
+    protected function newBaseQueryBuilder(): InternalSettingsQueryBuilder
     {
         return new InternalSettingsQueryBuilder(
             new InternalSettingsConnection(),
@@ -44,7 +44,7 @@ abstract class InternalSettingsModel extends Model
         );
     }
 
-    public function newEloquentBuilder($query)
+    public function newEloquentBuilder($query): SettingsQueryBuilder
     {
         return (new SettingsQueryBuilder($query))->setModel($this);
     }
@@ -73,6 +73,7 @@ abstract class InternalSettingsModel extends Model
             $newKey = Str::after($key, static::keyPrefix());
             if (!array_key_exists($newKey, $this->_buffer)) {
                 $template = $this->template();
+                /** @psalm-suppress UndefinedClass */
                 $model    = $this->getDBModel()::query()
                     ->page($template::getSlug())
                     ->key($newKey)->first();
@@ -102,7 +103,7 @@ abstract class InternalSettingsModel extends Model
         return parent::setAttribute($key, $value);
     }
 
-    public function save(array $options = [])
+    public function save(array $options = []): bool
     {
         /** @var SettingsTemplate $template */
         $template = $this->template();

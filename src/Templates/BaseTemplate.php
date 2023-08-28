@@ -9,6 +9,7 @@ abstract class BaseTemplate implements SettingsTemplate
 {
     /**
      * @deprecated
+     * @codeCoverageIgnore
      */
     public static function retreive(?string $modelClass = null): PageSettingsCollection
     {
@@ -41,8 +42,10 @@ abstract class BaseTemplate implements SettingsTemplate
 
     public function mutateAttribute($key, $value)
     {
-        if ($this->hasAttrMutator($key)) {
-            return $this->{'get' . Str::studly($key) . 'Attribute'}($value);
+        $methodName = 'get' . Str::studly($key) . 'Attribute';
+
+        if (method_exists($this, $methodName)) {
+            return $this->$methodName($value);
         }
 
         return $value;
@@ -51,10 +54,5 @@ abstract class BaseTemplate implements SettingsTemplate
     public function templateKey(string $key): string
     {
         return config('nova-page-settings.key_prefix') . $key;
-    }
-
-    protected function hasAttrMutator($key): bool
-    {
-        return method_exists($this, 'get' . Str::studly($key) . 'Attribute');
     }
 }

@@ -3,6 +3,7 @@
 namespace Thinkone\NovaPageSettings\Model;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Thinkone\NovaPageSettings\Factories\PageSettingFactory;
@@ -13,17 +14,17 @@ class PageSetting extends Model
 
     protected $guarded = [];
 
-    public function getTable()
+    public function getTable(): string
     {
         return config('nova-page-settings.default.settings_table');
     }
 
-    protected static function newFactory(): PageSettingFactory
+    protected static function newFactory(): Factory
     {
         return PageSettingFactory::new();
     }
 
-    public function newCollection(array $models = [])
+    public function newCollection(array $models = []): PageSettingsCollection
     {
         return new PageSettingsCollection($models);
     }
@@ -40,6 +41,10 @@ class PageSetting extends Model
 
     public function valueArray(): array
     {
+        if(is_array($this->value)) {
+            return $this->value;
+        }
+
         $data = json_decode($this->value, true);
 
         return is_array($data) ? $data : [];

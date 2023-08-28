@@ -2,25 +2,18 @@
 
 namespace Thinkone\NovaPageSettings\Nova\Resources\Traits;
 
-use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Laravel\Nova\Http\Requests\ResourceDetailRequest;
 use Laravel\Nova\Http\Requests\ResourceIndexRequest;
 use Thinkone\NovaPageSettings\QueryAdapter\InternalSettingsModel;
 use Thinkone\NovaPageSettings\Templates\SettingsTemplate;
 
 trait AsPageSetting
 {
-    public function fields(Request $request): array
+    public function fields(NovaRequest $request): array
     {
-        if ($request instanceof ResourceIndexRequest) {
-            return $this->fieldsOnIndex($request);
-        }
-
-
-        if ($request instanceof ResourceDetailRequest || $request instanceof NovaRequest) {
+        if (!($request instanceof ResourceIndexRequest)) {
             /** @var SettingsTemplate $template */
             $templateModel = $request->model()->find($request->route('resourceId'));
             if ($templateModel && ($template = $templateModel->template())) {
@@ -28,7 +21,8 @@ trait AsPageSetting
             }
         }
 
-        return [];
+
+        return $this->fieldsOnIndex($request);
     }
 
     public function fieldsOnIndex(ResourceIndexRequest $request)

@@ -32,4 +32,21 @@ class TemplateViewDataTest extends TestCase
         $this->assertEquals($viewData[$emailSetting->key], $emailSetting->value);
         $this->assertEquals($viewData[$pushImagesSetting->key], $pushImagesSetting->value);
     }
+
+    /** @test */
+    public function mutate_attribute()
+    {
+        $template = new HomePageTemplate;
+
+        $this->assertEquals('http://pic', $template->mutateAttribute('image', 'pic'));
+        $this->assertEquals('pic', $template->mutateAttribute('link', 'pic'));
+    }
+
+    /** @test */
+    public function template_key()
+    {
+        $template = new HomePageTemplate;
+
+        $this->assertEquals('opt_image', $template->templateKey('image'));
+    }
 }
